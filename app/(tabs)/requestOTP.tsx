@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import { fontSize } from "@/constants/Typography";
+import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Ionicons from "react-native-vector-icons/AntDesign";
@@ -17,6 +18,9 @@ const RequestOTP = () => {
           label="ขอรหัส OTP"
           colorLabel="white"
           style={styles.buttonConfirm}
+          onPress={() => {
+            router.push("/verifyOTP");
+          }}
         />
         <Text style={styles.helperDescription}>
           กรณีเบอร์โทรศัพท์ไม่ถูกต้องกรุณาติดต่อเบอร์ 02-XXX-XXXX
