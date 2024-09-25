@@ -1,70 +1,196 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Text, View } from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { router } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import Button from "../../components/Button";
+import { fontSize, fontFamily } from "@/constants/Typography";
+import { useFonts } from "expo-font";
+
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import Divider from "@/components/Divider";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
+  useEffect(() => {
+    setTimeout(async () => {
+      await SplashScreen.hideAsync();
+    }, 2000);
+  }, []);
+
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
+
+  let [fontsLoad] = useFonts({
+    Sukhumvit: require("../../assets/fonts/SukhumvitSet-Medium.ttf"),
+    SukhumvitBold: require("../../assets/fonts/SukhumvitSet-Bold.ttf"),
+  });
+
+  if (!fontsLoad) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <View style={styles.screenContainer}>
+      <View style={styles.titleContainer}>
+        <View>
+          <Text style={styles.textTitleContainer}>ยินดีต้อนรับ</Text>
+        </View>
+        <View>
+          <Text style={styles.textBodyContainer}>กรุณาเลือกภาษา</Text>
+        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          label="English"
+          colorLabel={"#fff"}
+          style={styles.button}
+          onPress={() => bottomSheetRef.current?.expand()}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <Button
+          label="ไทย"
+          colorLabel={"#fff"}
+          style={styles.button}
+          onPress={() => bottomSheetRef.current?.expand()}
+        />
+      </View>
+      <BottomSheet
+        ref={bottomSheetRef}
+        onChange={handleSheetChanges}
+        snapPoints={["80%"]}
+        enablePanDownToClose={false}
+        index={-1}
+      >
+        <BottomSheetView style={bottomSheetStyles.container}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <Ionicons name="document-text-outline" size={30} color="#4c8b7b" />
+            <Text style={bottomSheetStyles.title}>เงื่อนไขการใช้บริการ</Text>
+          </View>
+          <Divider />
+          <Text style={bottomSheetStyles.description}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
+            voluptatibus quae quas, officiis voluptas voluptatum! Voluptatibus
+            ipsum
+          </Text>
+          <View style={bottomSheetStyles.buttonContainer}>
+            <Button
+              label="ปฎิเสธ"
+              colorLabel={"#4c8b7b"}
+              onPress={() => bottomSheetRef.current?.close()}
+              style={bottomSheetStyles.buttonDeny}
+            />
+            <Button
+              label="ยอมรับ"
+              colorLabel={"#fff"}
+              onPress={() => {
+                router.push("/login");
+                // bottomSheetRef.current?.close();
+              }}
+              style={bottomSheetStyles.buttonConfirm}
+            />
+          </View>
+        </BottomSheetView>
+      </BottomSheet>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  screenContainer: {
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 70,
+    padding: 32,
+    backgroundColor: "#fff",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  titleContainer: { gap: 8, width: "100%" },
+  textTitleContainer: {
+    fontSize: fontSize.h2.size,
+    fontWeight: fontSize.h2.fontWeight,
+    lineHeight: fontSize.h2.lineHeight,
+    fontFamily: fontFamily.fontFamily,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  textBodyContainer: {
+    fontSize: fontSize.body.size,
+    fontWeight: fontSize.body.fontWeight,
+    lineHeight: fontSize.body.lineHeight,
+    fontFamily: fontFamily.fontFamilyBold,
+  },
+  buttonContainer: {
+    width: "100%",
+    height: "auto",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 16,
+  },
+  button: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    padding: 12,
+    borderRadius: 4,
+    backgroundColor: "#01654f",
+  },
+});
+
+const bottomSheetStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    padding: 24,
+  },
+  title: {
+    fontSize: fontSize.h3.size,
+    marginLeft: 10,
+    fontFamily: fontFamily.fontFamilyBold,
+  },
+  description: {
+    display: "flex",
+    flex: 1,
+    fontSize: fontSize.body.size,
+    lineHeight: fontSize.body.lineHeight,
+    fontFamily: fontFamily.fontFamily,
+  },
+  buttonContainer: {
+    width: "100%",
+    height: "auto",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 16,
+  },
+  buttonDeny: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 12,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "#4c8b7b",
+    backgroundColor: "transparent",
+  },
+  buttonConfirm: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 12,
+    borderRadius: 4,
+    backgroundColor: "#01654f",
   },
 });
