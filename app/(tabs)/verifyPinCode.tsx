@@ -1,4 +1,6 @@
+import PinCodeEntry from "@/components/pinCode";
 import { fontFamily, fontSize } from "@/constants/Typography";
+
 import { StyleSheet, Text, View } from "react-native";
 
 const VerifyPinCode = () => {
@@ -6,7 +8,9 @@ const VerifyPinCode = () => {
     <View style={style.screenContainer}>
       <View style={style.viewPinCodeContainer}>
         <Text style={style.titlePinCode}>ตั้งรหัส PIN CODE</Text>
+        <Text> oooooo </Text>
       </View>
+      <PinCodeEntry />
     </View>
   );
 };
@@ -18,6 +22,7 @@ const style = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     padding: 32,
+    gap: 30,
   },
   viewPinCodeContainer: {
     width: "100%",
