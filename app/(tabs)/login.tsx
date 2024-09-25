@@ -3,6 +3,7 @@ import Divider from "@/components/Divider";
 import { fontFamily } from "@/constants/Typography";
 
 import { useFonts } from "expo-font";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -82,7 +83,8 @@ const Login = () => {
             colorLabel={"#fff"}
             style={styles.buttonLogin}
             onPress={() => {
-              handleLogin();
+              // handleLogin();
+              router.push("/requestOTP");
             }}
           />
           <View style={styles.separateContainer}>
