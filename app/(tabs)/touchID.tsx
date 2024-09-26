@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import { Colors } from "@/constants/Colors";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Entypo";
@@ -18,7 +19,11 @@ const TouchID = () => {
         </View>
       </View>
       <View style={style.iconTouchIDContainer}>
-        <Ionicons name="fingerprint" size={100} color="#067a61" />
+        <Ionicons
+          name="fingerprint"
+          size={100}
+          color={Colors.myTheme.background}
+        />
       </View>
       <View style={style.actionContainer}>
         <Button
@@ -28,7 +33,7 @@ const TouchID = () => {
         />
         <Button
           label="ข้าม"
-          colorLabel="#067a61"
+          colorLabel={Colors.myTheme.text}
           style={style.buttonSkip}
           onPress={() => {
             router.push("/verifyPinCode");
@@ -94,7 +99,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     padding: 12,
     borderRadius: 4,
-    backgroundColor: "#01654f",
+    backgroundColor: Colors.myTheme.background,
   },
   buttonSkip: {
     width: "100%",

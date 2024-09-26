@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import Divider from "@/components/Divider";
+import { Colors } from "@/constants/Colors";
 import { fontFamily } from "@/constants/Typography";
 
 import { useFonts } from "expo-font";
@@ -100,7 +101,7 @@ const Login = () => {
           </View>
           <Button
             label="เปิดบัญชีเพื่อลงทะเบียบัญชีผู้ใช้"
-            colorLabel={"#4c8b7b"}
+            colorLabel={Colors.myTheme.text}
             style={styles.buttonRegister}
           />
         </View>
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 12,
     borderRadius: 4,
-    backgroundColor: "#01654f",
+    backgroundColor: Colors.myTheme.background,
   },
   buttonRegister: {
     width: "100%",
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "transparent",
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: Colors.myTheme.background,
   },
   separateContainer: {
     width: "100%",

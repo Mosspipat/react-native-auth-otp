@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import { Colors } from "@/constants/Colors";
 import { fontSize } from "@/constants/Typography";
 import { router } from "expo-router";
 import React from "react";
@@ -8,7 +9,7 @@ import Ionicons from "react-native-vector-icons/AntDesign";
 const RequestOTP = () => {
   return (
     <View style={styles.screenContainer}>
-      <Ionicons name="mobile1" size={70} color="#4c8b7b" />
+      <Ionicons name="mobile1" size={70} color={Colors.myTheme.icon} />
       <View style={styles.OTPContainer}>
         <Text style={styles.OTPTitle}>OTP จะถูกส่งไปที่เบอร์โทรศัพท์</Text>
         <Text style={styles.OTPNumber}>082-XXX-8998</Text>
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "700",
     fontFamily: "SukhumvitSet-Medium",
-    color: "#067a61",
+    color: Colors.myTheme.labelDescription,
   },
   SendOTPContainer: {
     width: "100%",
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 12,
     borderRadius: 4,
-    backgroundColor: "#01654f",
+    backgroundColor: Colors.myTheme.background,
   },
   helperDescription: {
     fontSize: 12,

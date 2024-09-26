@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import { Colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Typography";
 import { useFonts } from "expo-font";
 import { router } from "expo-router";
@@ -17,7 +18,7 @@ const successPassword = () => {
     <View style={styles.screenContainer}>
       <View style={styles.formContainer}>
         <View style={styles.iconContainer}>
-          <Ionicons name="check" size={100} color="#067a61" />
+          <Ionicons name="check" size={100} color={Colors.myTheme.background} />
         </View>
         <View style={styles.SuccessContainer}>
           <Text style={styles.tileSuccess}>สำเร็จ</Text>
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderWidth: 3,
     borderRadius: 100,
-    borderColor: "#067a61",
+    borderColor: Colors.myTheme.background,
   },
   SuccessContainer: {
     display: "flex",
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 12,
     borderRadius: 4,
-    backgroundColor: "#01654f",
+    backgroundColor: Colors.myTheme.background,
     width: "100%",
   },
 });

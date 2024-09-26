@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import { fontSize } from "@/constants/Typography";
 import { router } from "expo-router";
 import OTPContext from "@/contexts/OTPContext";
+import { Colors } from "@/constants/Colors";
 
 const VerifyOTP = () => {
   const { otp, setOtp, isSuccessOTPCode, setIsSuccessOTPCode } =
@@ -81,7 +82,7 @@ const VerifyOTP = () => {
       </View>
       <View style={style.helperContainer}>
         <Text style={style.descriptionVerify}>หากคุณไม่ได้รับรหัส?</Text>
-        <Button label="ส่งรหัสอีกครั้ง" colorLabel="#036650" />
+        <Button label="ส่งรหัสใหม่" colorLabel={Colors.myTheme.text} />
       </View>
     </Pressable>
   );
