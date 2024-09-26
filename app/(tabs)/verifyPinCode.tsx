@@ -1,11 +1,12 @@
 import PinCodeEntry from "@/components/pinCode";
+import { Colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Typography";
 import { PinCodeContext } from "@/contexts/PinCodeContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 import { StyleSheet, Text, View } from "react-native";
 
-const renderDotPinCode = (isPinCode?: boolean) => {
+const RenderDotPinCode = ({ isPinCode }: { isPinCode?: boolean }) => {
   const style = StyleSheet.create({
     dot: {
       width: 14,
@@ -13,7 +14,7 @@ const renderDotPinCode = (isPinCode?: boolean) => {
       borderRadius: 40,
       borderWidth: 1,
       borderColor: isPinCode ? "transparent" : "#807373",
-      backgroundColor: isPinCode ? "#4c8b7b" : "transparent",
+      backgroundColor: isPinCode ? Colors.myTheme.background : "transparent",
     },
   });
   return <View style={style.dot}></View>;
@@ -35,12 +36,11 @@ const VerifyPinCode = () => {
       <View style={style.viewPinCodeContainer}>
         <Text style={style.titlePinCode}>ตั้งรหัส PIN CODE</Text>
         <View style={style.dotContainer}>
-          {Array.from({ length: amountPinCode }).map((_, i) =>
-            renderDotPinCode(pinCode ? true : false)
-          )}
+          {Array.from({ length: amountPinCode }).map((_, i) => (
+            <RenderDotPinCode key={i} isPinCode={pinCode ? true : false} />
+          ))}
         </View>
       </View>
-
       <PinCodeEntry />
     </View>
   );

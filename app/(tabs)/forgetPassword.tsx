@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import { Colors } from "@/constants/Colors";
 import { router } from "expo-router";
 import React from "react";
 import {
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 12,
     borderRadius: 4,
-    backgroundColor: "#01654f",
+    backgroundColor: Colors.myTheme.background,
     width: "100%",
   },
 });

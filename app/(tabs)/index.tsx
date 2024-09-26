@@ -10,6 +10,7 @@ import { useFonts } from "expo-font";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import Divider from "@/components/Divider";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { Colors } from "@/constants/Colors";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -82,7 +83,11 @@ export default function HomeScreen() {
               flexDirection: "row",
             }}
           >
-            <Ionicons name="document-text-outline" size={30} color="#4c8b7b" />
+            <Ionicons
+              name="document-text-outline"
+              size={30}
+              color={Colors.myTheme.background}
+            />
             <Text style={bottomSheetStyles.title}>เงื่อนไขการใช้บริการ</Text>
           </View>
           <Divider />
@@ -94,7 +99,7 @@ export default function HomeScreen() {
           <View style={bottomSheetStyles.buttonContainer}>
             <Button
               label="ปฎิเสธ"
-              colorLabel={"#4c8b7b"}
+              colorLabel={Colors.myTheme.background}
               onPress={() => bottomSheetRef.current?.close()}
               style={bottomSheetStyles.buttonDeny}
             />
@@ -103,7 +108,6 @@ export default function HomeScreen() {
               colorLabel={"#fff"}
               onPress={() => {
                 router.push("/login");
-                // bottomSheetRef.current?.close();
               }}
               style={bottomSheetStyles.buttonConfirm}
             />
@@ -151,7 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 12,
     borderRadius: 4,
-    backgroundColor: "#01654f",
+    backgroundColor: Colors.myTheme.background,
   },
 });
 
@@ -188,7 +192,7 @@ const bottomSheetStyles = StyleSheet.create({
     padding: 12,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: "#4c8b7b",
+    borderColor: Colors.myTheme.background,
     backgroundColor: "transparent",
   },
   buttonConfirm: {
@@ -196,6 +200,6 @@ const bottomSheetStyles = StyleSheet.create({
     justifyContent: "center",
     padding: 12,
     borderRadius: 4,
-    backgroundColor: "#01654f",
+    backgroundColor: Colors.myTheme.background,
   },
 });
