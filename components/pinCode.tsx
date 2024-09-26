@@ -1,4 +1,5 @@
 import { PinCodeContext } from "@/contexts/PinCodeContext";
+import { router } from "expo-router";
 import React, { useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/FontAwesome5";
@@ -6,12 +7,15 @@ import Ionicons from "react-native-vector-icons/FontAwesome5";
 const PinCodeEntry = () => {
   const buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "DEL"];
 
-  const { setPinCode } = useContext(PinCodeContext);
+  const { setPinCode, isSuccessPinCode } = useContext(PinCodeContext);
+  console.log("🚀: ~ isSuccessPinCode:", isSuccessPinCode);
 
   const handlePress = (value: any) => {
-    if (value === "4") {
+    if (isSuccessPinCode && value === "4") {
+      console.log("change to next step");
+      router.push("/login");
+    } else if (value === "4") {
       setPinCode("4");
-    } else {
     }
   };
 

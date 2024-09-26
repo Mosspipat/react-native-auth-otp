@@ -1,7 +1,7 @@
 import PinCodeEntry from "@/components/pinCode";
 import { fontFamily, fontSize } from "@/constants/Typography";
 import { PinCodeContext } from "@/contexts/PinCodeContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { StyleSheet, Text, View } from "react-native";
 
@@ -16,15 +16,16 @@ const renderDotPinCode = (isPinCode?: boolean) => {
       backgroundColor: isPinCode ? "#4c8b7b" : "transparent",
     },
   });
-
   return <View style={style.dot}></View>;
 };
 
 const VerifyPinCode = () => {
-  const { pinCode } = useContext(PinCodeContext);
+  const { pinCode, setIsSuccessPinCode } = useContext(PinCodeContext);
 
   useEffect(() => {
-    console.log("🚀: ~ pinCode:", pinCode);
+    if (pinCode === "4") {
+      setIsSuccessPinCode(true);
+    }
   }, [pinCode]);
 
   const amountPinCode = 6;
@@ -39,6 +40,7 @@ const VerifyPinCode = () => {
           )}
         </View>
       </View>
+
       <PinCodeEntry />
     </View>
   );
