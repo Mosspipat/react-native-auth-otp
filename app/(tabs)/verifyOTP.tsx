@@ -23,18 +23,21 @@ const VerifyOTP = () => {
         <TextInput
           style={style.inputDigitStyle}
           placeholder="0"
+          value="1"
           placeholderTextColor={"#88888830"}
           keyboardType="phone-pad"
           selectionColor={"#4c8b7b"}
         />
         <TextInput
           style={style.inputDigitStyle}
+          value="8"
           placeholder="0"
           placeholderTextColor={"#88888830"}
           selectionColor={"#4c8b7b"}
         />
         <TextInput
           style={style.inputDigitStyle}
+          value="9"
           placeholder="0"
           placeholderTextColor={"#88888830"}
           selectionColor={"#4c8b7b"}
@@ -97,7 +100,8 @@ const style = StyleSheet.create({
   inputDigitStyle: {
     flex: 1,
     height: "auto",
-    fontSize: 64,
+    fontSize: 40,
+    textAlign: "center",
     paddingBottom: 2,
     borderBottomWidth: 1,
     borderBottomColor: "#88888830",

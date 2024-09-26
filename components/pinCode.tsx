@@ -1,14 +1,17 @@
-import React from "react";
+import { PinCodeContext } from "@/contexts/PinCodeContext";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Ionicons from "react-native-vector-icons/FontAwesome5";
 
 const PinCodeEntry = () => {
   const buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "DEL"];
 
+  const { setPinCode } = useContext(PinCodeContext);
+
   const handlePress = (value: any) => {
-    if (value === "DEL") {
-      // Handle delete logic
+    if (value === "4") {
+      setPinCode("4");
     } else {
-      // Handle pin code input
     }
   };
 
@@ -20,7 +23,11 @@ const PinCodeEntry = () => {
           style={buttonValue ? styles.buttonActive : styles.buttonNotActive}
           onPress={() => handlePress(buttonValue)}
         >
-          <Text style={styles.buttonText}>{buttonValue}</Text>
+          {buttonValue === "DEL" ? (
+            <Ionicons name="backspace" size={30} color="#333" />
+          ) : (
+            <Text style={styles.buttonText}>{buttonValue}</Text>
+          )}
         </TouchableOpacity>
       ))}
     </View>
