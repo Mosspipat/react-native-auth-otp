@@ -75,7 +75,14 @@ const Login = () => {
             </View>
             <Text style={styles.checkboxLabel}>บันทึกการเข้าสู่ระบบ</Text>
           </TouchableOpacity>
-          <Text style={styles.checkboxLabel}>ลืมรหัสผ่าน?</Text>
+          <Text
+            style={styles.checkboxLabel}
+            onPress={() => {
+              router.push("/forgetPassword");
+            }}
+          >
+            ลืมรหัสผ่าน?
+          </Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button

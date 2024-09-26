@@ -14,17 +14,22 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
+  // useEffect(() => {
+  //   setTimeout(async () => {
+  //     await SplashScreen.hideAsync();
+  //     router.replace("/successPassword");
+  //   }, 0);
+  // }, []);
   useEffect(() => {
     setTimeout(async () => {
       await SplashScreen.hideAsync();
+      // router.replace("/successPassword");
     }, 2000);
   }, []);
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+  const handleSheetChanges = useCallback((index: number) => {}, []);
 
   let [fontsLoad] = useFonts({
     Sukhumvit: require("../../assets/fonts/SukhumvitSet-Medium.ttf"),
@@ -54,7 +59,7 @@ export default function HomeScreen() {
           label="English"
           colorLabel={"#fff"}
           style={styles.button}
-          onPress={() => bottomSheetRef.current?.expand()}
+          // onPress={() => bottomSheetRef.current?.expand()}
         />
         <Button
           label="ไทย"
