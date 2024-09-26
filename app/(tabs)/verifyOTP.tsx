@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import Button from "@/components/Button";
 import { fontSize } from "@/constants/Typography";
 import { router } from "expo-router";
+import OTPContext from "@/contexts/OTPContext";
 
 const VerifyOTP = () => {
+  const { otp, setOtp, isSuccessOTPCode, setIsSuccessOTPCode } =
+    useContext(OTPContext);
+
+  useEffect(() => {
+    console.log(otp);
+  }, [otp]);
+
   return (
     <Pressable
       style={style.screenContainer}
       onPress={() => {
-        router.push("/verifyPinCode");
+        if (!isSuccessOTPCode) {
+          setOtp(["9", "4", "6", "8", "1", "4"]);
+          setIsSuccessOTPCode(true);
+        } else {
+          setOtp(["", "", "", "", "", ""]);
+          setIsSuccessOTPCode(false);
+          router.push("/verifyPinCode");
+        }
       }}
     >
       <View style={style.verifyDescriptionContainer}>
@@ -23,27 +38,21 @@ const VerifyOTP = () => {
         <TextInput
           style={style.inputDigitStyle}
           placeholder="0"
-          value="1"
+          value={otp?.[0]}
           placeholderTextColor={"#88888830"}
           keyboardType="phone-pad"
           selectionColor={"#4c8b7b"}
         />
         <TextInput
           style={style.inputDigitStyle}
-          value="8"
+          value={otp?.[1]}
           placeholder="0"
           placeholderTextColor={"#88888830"}
           selectionColor={"#4c8b7b"}
         />
         <TextInput
           style={style.inputDigitStyle}
-          value="9"
-          placeholder="0"
-          placeholderTextColor={"#88888830"}
-          selectionColor={"#4c8b7b"}
-        />
-        <TextInput
-          style={style.inputDigitStyle}
+          value={otp?.[2]}
           placeholder="0"
           placeholderTextColor={"#88888830"}
           selectionColor={"#4c8b7b"}
@@ -51,12 +60,21 @@ const VerifyOTP = () => {
         <TextInput
           style={style.inputDigitStyle}
           placeholder="0"
+          value={otp?.[3]}
           placeholderTextColor={"#88888830"}
           selectionColor={"#4c8b7b"}
         />
         <TextInput
           style={style.inputDigitStyle}
           placeholder="0"
+          value={otp?.[4]}
+          placeholderTextColor={"#88888830"}
+          selectionColor={"#4c8b7b"}
+        />
+        <TextInput
+          style={style.inputDigitStyle}
+          placeholder="0"
+          value={otp?.[5]}
           placeholderTextColor={"#88888830"}
           selectionColor={"#4c8b7b"}
         />
