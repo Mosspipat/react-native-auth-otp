@@ -7,13 +7,24 @@ import Ionicons from "react-native-vector-icons/FontAwesome5";
 const PinCodeEntry = () => {
   const buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "DEL"];
 
-  const { setPinCode, isSuccessPinCode, setIsSuccessPinCode } =
-    useContext(PinCodeContext);
-  console.log("🚀: ~ isSuccessPinCode:", isSuccessPinCode);
+  const {
+    setPinCode,
+    pinCode,
+    isSuccessPinCode,
+    setIsSuccessPinCode,
+    setIsVerifiedPinCode,
+    isVerifiedPinCode,
+  } = useContext(PinCodeContext);
 
   const handlePress = (value: any) => {
-    if (isSuccessPinCode && value === "4") {
+    if (isVerifiedPinCode && pinCode === "4") {
+      console.log("go to welcome app");
+      router.push("/welcomeApp");
+    } else if (isVerifiedPinCode) {
+      setPinCode("4");
+    } else if (isSuccessPinCode && value === "4") {
       console.log("change to next step");
+      setIsVerifiedPinCode(true);
       setPinCode(null);
       setIsSuccessPinCode(false);
       router.push("/touchID");

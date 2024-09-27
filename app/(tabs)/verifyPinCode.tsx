@@ -21,7 +21,8 @@ const RenderDotPinCode = ({ isPinCode }: { isPinCode?: boolean }) => {
 };
 
 const VerifyPinCode = () => {
-  const { pinCode, setIsSuccessPinCode } = useContext(PinCodeContext);
+  const { pinCode, setIsSuccessPinCode, isVerifiedPinCode } =
+    useContext(PinCodeContext);
 
   useEffect(() => {
     if (pinCode === "4") {
@@ -34,7 +35,9 @@ const VerifyPinCode = () => {
   return (
     <View style={style.screenContainer}>
       <View style={style.viewPinCodeContainer}>
-        <Text style={style.titlePinCode}>ตั้งรหัส PIN CODE</Text>
+        <Text style={style.titlePinCode}>
+          {isVerifiedPinCode ? "ยืนยันรหัส PIN CODE" : "ตั้งรหัส PIN CODE"}
+        </Text>
         <View style={style.dotContainer}>
           {Array.from({ length: amountPinCode }).map((_, i) => (
             <RenderDotPinCode key={i} isPinCode={pinCode ? true : false} />
