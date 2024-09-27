@@ -10,10 +10,6 @@ const VerifyOTP = () => {
   const { otp, setOtp, isSuccessOTPCode, setIsSuccessOTPCode } =
     useContext(OTPContext);
 
-  useEffect(() => {
-    console.log(otp);
-  }, [otp]);
-
   return (
     <Pressable
       style={style.screenContainer}

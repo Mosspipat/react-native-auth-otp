@@ -2,6 +2,7 @@ import PinCodeEntry from "@/components/pinCode";
 import { Colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Typography";
 import { PinCodeContext } from "@/contexts/PinCodeContext";
+import { router } from "expo-router";
 import { useContext, useEffect } from "react";
 
 import { StyleSheet, Text, View } from "react-native";
@@ -21,7 +22,16 @@ const RenderDotPinCode = ({ isPinCode }: { isPinCode?: boolean }) => {
 };
 
 const VerifyPinCode = () => {
-  const { pinCode, setIsSuccessPinCode } = useContext(PinCodeContext);
+  const {
+    pinCode,
+    setIsSuccessPinCode,
+    isVerifiedPinCode,
+    setIsVerifiedConnectApp,
+    isVerifiedConnectApp,
+    setPinCode,
+    isSuccessPinCode,
+    setIsVerifiedPinCode,
+  } = useContext(PinCodeContext);
 
   useEffect(() => {
     if (pinCode === "4") {
@@ -31,17 +41,36 @@ const VerifyPinCode = () => {
 
   const amountPinCode = 6;
 
+  const handlePressPin = (value: any) => {
+    if (isVerifiedConnectApp && (value === "4" || value === "fingerSign")) {
+      // go to welcome home app
+      router.push("/welcomeApp");
+    } else if (isVerifiedPinCode && (value === "4" || value === "fingerSign")) {
+      setIsVerifiedConnectApp(true);
+      setPinCode("4");
+    } else if (isSuccessPinCode && value === "4") {
+      setIsVerifiedPinCode(true);
+      setPinCode(null);
+      router.push("/touchID");
+    } else if (value === "4") {
+      setPinCode("4");
+    }
+  };
+
   return (
     <View style={style.screenContainer}>
       <View style={style.viewPinCodeContainer}>
-        <Text style={style.titlePinCode}>ตั้งรหัส PIN CODE</Text>
+        <Text style={style.titlePinCode}>
+          {isVerifiedPinCode ? "ยืนยันรหัส PIN CODE" : "ตั้งรหัส PIN CODE"}
+        </Text>
         <View style={style.dotContainer}>
           {Array.from({ length: amountPinCode }).map((_, i) => (
             <RenderDotPinCode key={i} isPinCode={pinCode ? true : false} />
           ))}
         </View>
       </View>
-      <PinCodeEntry />
+      <PinCodeEntry onPressPin={handlePressPin} />
+      {isVerifiedPinCode && <Text style={style.forgetText}>ลืมรหัส PIN ?</Text>}
     </View>
   );
 };
@@ -51,9 +80,9 @@ const style = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     padding: 32,
-    gap: 30,
+    gap: 10,
   },
   viewPinCodeContainer: {
     width: "100%",
@@ -74,6 +103,12 @@ const style = StyleSheet.create({
     letterSpacing: 0.25,
     fontFamily: fontFamily.fontFamily,
     textAlign: "left",
+  },
+  forgetText: {
+    fontSize: fontSize.h4.size,
+    letterSpacing: 0.25,
+    fontFamily: fontFamily.fontFamily,
+    textAlign: "center",
   },
 });
 export default VerifyPinCode;
