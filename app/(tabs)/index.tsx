@@ -15,16 +15,9 @@ import { Colors } from "@/constants/Colors";
 SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
-  // useEffect(() => {
-  //   setTimeout(async () => {
-  //     await SplashScreen.hideAsync();
-  //     router.replace("/successPassword");
-  //   }, 0);
-  // }, []);
   useEffect(() => {
     setTimeout(async () => {
       await SplashScreen.hideAsync();
-      // router.replace("/successPassword");
     }, 2000);
   }, []);
 
