@@ -7,7 +7,9 @@ const WelcomeApp = () => {
   return (
     <View style={style.screenContainer}>
       <Text style={style.title}>การทดสอบเสร็จสิ้น</Text>
-      <Text style={style.description}>ขอขอบคุณสำหรับการร่วมทดสอบงาน</Text>
+      <Text style={style.description}>
+        ยืนยันตัวตนสำเร็จ เข้าสู่ระบบการใช้งาน...
+      </Text>
     </View>
   );
 };

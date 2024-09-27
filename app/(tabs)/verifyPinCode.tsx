@@ -2,6 +2,7 @@ import PinCodeEntry from "@/components/pinCode";
 import { Colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Typography";
 import { PinCodeContext } from "@/contexts/PinCodeContext";
+import { router } from "expo-router";
 import { useContext, useEffect } from "react";
 
 import { StyleSheet, Text, View } from "react-native";
@@ -20,11 +21,17 @@ const RenderDotPinCode = ({ isPinCode }: { isPinCode?: boolean }) => {
   return <View style={style.dot}></View>;
 };
 
-(value === "4" || value === "fingerSign")
-
 const VerifyPinCode = () => {
-  const { pinCode, setIsSuccessPinCode, isVerifiedPinCode } =
-    useContext(PinCodeContext);
+  const {
+    pinCode,
+    setIsSuccessPinCode,
+    isVerifiedPinCode,
+    setIsVerifiedConnectApp,
+    isVerifiedConnectApp,
+    setPinCode,
+    isSuccessPinCode,
+    setIsVerifiedPinCode,
+  } = useContext(PinCodeContext);
 
   useEffect(() => {
     if (pinCode === "4") {
@@ -33,6 +40,22 @@ const VerifyPinCode = () => {
   }, [pinCode]);
 
   const amountPinCode = 6;
+
+  const handlePressPin = (value: any) => {
+    if (isVerifiedConnectApp && (value === "4" || value === "fingerSign")) {
+      // go to welcome home app
+      router.push("/welcomeApp");
+    } else if (isVerifiedPinCode && (value === "4" || value === "fingerSign")) {
+      setIsVerifiedConnectApp(true);
+      setPinCode("4");
+    } else if (isSuccessPinCode && value === "4") {
+      setIsVerifiedPinCode(true);
+      setPinCode(null);
+      router.push("/touchID");
+    } else if (value === "4") {
+      setPinCode("4");
+    }
+  };
 
   return (
     <View style={style.screenContainer}>
@@ -46,7 +69,7 @@ const VerifyPinCode = () => {
           ))}
         </View>
       </View>
-      <PinCodeEntry />
+      <PinCodeEntry onPressPin={handlePressPin} />
       {isVerifiedPinCode && <Text style={style.forgetText}>ลืมรหัส PIN ?</Text>}
     </View>
   );

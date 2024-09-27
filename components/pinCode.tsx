@@ -5,17 +5,12 @@ import React, { useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/FontAwesome5";
 
-const PinCodeEntry = () => {
-  const {
-    pinCode,
-    setPinCode,
-    isSuccessPinCode,
-    setIsSuccessPinCode,
-    isVerifiedPinCode,
-    setIsVerifiedPinCode,
-    setIsVerifiedConnectApp,
-    isVerifiedConnectApp,
-  } = useContext(PinCodeContext);
+const PinCodeEntry = ({
+  onPressPin,
+}: {
+  onPressPin: (pinCode: string) => void;
+}) => {
+  const { isVerifiedPinCode } = useContext(PinCodeContext);
 
   const buttons = [
     "1",
@@ -45,22 +40,6 @@ const PinCodeEntry = () => {
     }
   };
 
-  const handlePress = (value: any) => {
-    if (isVerifiedConnectApp && (value === "4" || value === "fingerSign")) {
-      // go to welcome home app
-      router.push("/welcomeApp");
-    } else if (isVerifiedPinCode && (value === "4" || value === "fingerSign")) {
-      setIsVerifiedConnectApp(true);
-      setPinCode("4");
-    } else if (isSuccessPinCode && value === "4") {
-      setIsVerifiedPinCode(true);
-      setPinCode(null);
-      router.push("/touchID");
-    } else if (value === "4") {
-      setPinCode("4");
-    }
-  };
-
   return (
     <View style={styles.container}>
       {buttons.map((buttonValue, index) => (
@@ -71,7 +50,7 @@ const PinCodeEntry = () => {
               ? styles.buttonActive
               : styles.buttonNotActive
           }
-          onPress={() => handlePress(buttonValue)}
+          onPress={() => onPressPin(buttonValue)}
         >
           <ButtonPinIcon buttonValue={buttonValue} />
         </TouchableOpacity>
