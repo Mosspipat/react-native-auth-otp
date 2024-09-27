@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { PinCodeContext } from "@/contexts/PinCodeContext";
 import { router } from "expo-router";
 import React, { useContext } from "react";
@@ -5,28 +6,55 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/FontAwesome5";
 
 const PinCodeEntry = () => {
-  const buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "DEL"];
-
   const {
-    setPinCode,
     pinCode,
+    setPinCode,
     isSuccessPinCode,
     setIsSuccessPinCode,
-    setIsVerifiedPinCode,
     isVerifiedPinCode,
+    setIsVerifiedPinCode,
+    setIsVerifiedConnectApp,
+    isVerifiedConnectApp,
   } = useContext(PinCodeContext);
 
+  const buttons = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "fingerSign",
+    "0",
+    "DEL",
+  ];
+
+  const ButtonPinIcon = ({ buttonValue }: { buttonValue: string }) => {
+    switch (buttonValue) {
+      case "fingerSign":
+        return isVerifiedPinCode ? (
+          <Ionicons name="fingerprint" size={40} color={Colors.myTheme.icon} />
+        ) : null;
+      case "DEL":
+        return <Ionicons name="backspace" size={24} color="black" />;
+      default:
+        return <Text style={styles.buttonText}>{buttonValue}</Text>;
+    }
+  };
+
   const handlePress = (value: any) => {
-    if (isVerifiedPinCode && pinCode === "4") {
-      console.log("go to welcome app");
+    if (isVerifiedConnectApp && (value === "4" || value === "fingerSign")) {
+      // go to welcome home app
       router.push("/welcomeApp");
-    } else if (isVerifiedPinCode) {
+    } else if (isVerifiedPinCode && (value === "4" || value === "fingerSign")) {
+      setIsVerifiedConnectApp(true);
       setPinCode("4");
     } else if (isSuccessPinCode && value === "4") {
-      console.log("change to next step");
       setIsVerifiedPinCode(true);
       setPinCode(null);
-      setIsSuccessPinCode(false);
       router.push("/touchID");
     } else if (value === "4") {
       setPinCode("4");
@@ -38,14 +66,14 @@ const PinCodeEntry = () => {
       {buttons.map((buttonValue, index) => (
         <TouchableOpacity
           key={index}
-          style={buttonValue ? styles.buttonActive : styles.buttonNotActive}
+          style={
+            buttonValue !== "fingerSign"
+              ? styles.buttonActive
+              : styles.buttonNotActive
+          }
           onPress={() => handlePress(buttonValue)}
         >
-          {buttonValue === "DEL" ? (
-            <Ionicons name="backspace" size={30} color="#333" />
-          ) : (
-            <Text style={styles.buttonText}>{buttonValue}</Text>
-          )}
+          <ButtonPinIcon buttonValue={buttonValue} />
         </TouchableOpacity>
       ))}
     </View>
@@ -58,7 +86,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    paddingHorizontal: 20,
     width: "100%",
     rowGap: 10,
     columnGap: 8,

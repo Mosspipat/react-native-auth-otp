@@ -20,6 +20,8 @@ const RenderDotPinCode = ({ isPinCode }: { isPinCode?: boolean }) => {
   return <View style={style.dot}></View>;
 };
 
+(value === "4" || value === "fingerSign")
+
 const VerifyPinCode = () => {
   const { pinCode, setIsSuccessPinCode, isVerifiedPinCode } =
     useContext(PinCodeContext);
@@ -45,6 +47,7 @@ const VerifyPinCode = () => {
         </View>
       </View>
       <PinCodeEntry />
+      {isVerifiedPinCode && <Text style={style.forgetText}>ลืมรหัส PIN ?</Text>}
     </View>
   );
 };
@@ -54,9 +57,9 @@ const style = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     padding: 32,
-    gap: 30,
+    gap: 10,
   },
   viewPinCodeContainer: {
     width: "100%",
@@ -77,6 +80,12 @@ const style = StyleSheet.create({
     letterSpacing: 0.25,
     fontFamily: fontFamily.fontFamily,
     textAlign: "left",
+  },
+  forgetText: {
+    fontSize: fontSize.h4.size,
+    letterSpacing: 0.25,
+    fontFamily: fontFamily.fontFamily,
+    textAlign: "center",
   },
 });
 export default VerifyPinCode;

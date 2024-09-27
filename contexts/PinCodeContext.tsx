@@ -7,6 +7,8 @@ const PinCodeContext = createContext<{
   setIsSuccessPinCode: (isSuccessPinCode: boolean) => void;
   isVerifiedPinCode: boolean | undefined;
   setIsVerifiedPinCode: (isVerifiedPinCode: boolean) => void;
+  isVerifiedConnectApp: boolean | undefined;
+  setIsVerifiedConnectApp: (isVerifiedConnectApp: boolean) => void;
 }>({
   pinCode: null,
   setPinCode: () => {},
@@ -14,12 +16,16 @@ const PinCodeContext = createContext<{
   setIsSuccessPinCode: () => {},
   isVerifiedPinCode: false,
   setIsVerifiedPinCode: () => {},
+  isVerifiedConnectApp: false,
+  setIsVerifiedConnectApp: () => {},
 });
 
 const PinCodeProvider = ({ children }: { children: React.ReactNode }) => {
   const [pinCode, setPinCode] = useState<string | null>(null);
   const [isSuccessPinCode, setIsSuccessPinCode] = useState<boolean>(false);
   const [isVerifiedPinCode, setIsVerifiedPinCode] = useState<boolean>(false);
+  const [isVerifiedConnectApp, setIsVerifiedConnectApp] =
+    useState<boolean>(false);
 
   return (
     <PinCodeContext.Provider
@@ -30,6 +36,8 @@ const PinCodeProvider = ({ children }: { children: React.ReactNode }) => {
         setIsSuccessPinCode,
         isVerifiedPinCode,
         setIsVerifiedPinCode,
+        isVerifiedConnectApp,
+        setIsVerifiedConnectApp,
       }}
     >
       {children}
