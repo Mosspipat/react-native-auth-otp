@@ -1,4 +1,8 @@
-# Flow app 👋
+# Flow App Mockup Prototype
+
+👋 **Welcome to the Flow App Mockup!**
+
+> **Note:** This prototype is for design purposes only. It does not contain any real functionality or features.
 
 ## Get started
 
