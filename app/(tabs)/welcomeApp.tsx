@@ -22,7 +22,7 @@ const style = StyleSheet.create({
     gap: 20,
   },
   title: {
-    fontSize: 50,
+    fontSize: 40,
     fontWeight: "bold",
     fontFamily: fontFamily.fontFamilyBold,
     textShadowColor: "rgba(53, 24, 195, 0.415)",
